@@ -10,7 +10,7 @@ namespace QuantumDriver
 
             foreach (var turn in moves[1])
             {
-                Console.WriteLine(turn);
+                Console.WriteLine($"{turn.ToInt()}:{moves[0][turn.ToInt()]}");
             }
 
             Console.WriteLine($"{moves}");

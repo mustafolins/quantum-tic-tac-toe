@@ -19,5 +19,10 @@ namespace QuantumDriver
             }
             return result;
         }
+
+        public static int Modulo9(this int num)
+        {
+            return num % 9;
+        }
     }
 }

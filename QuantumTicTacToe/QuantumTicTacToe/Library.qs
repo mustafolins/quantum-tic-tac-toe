@@ -33,12 +33,16 @@
         return qubits;
     }
     
+    /// # Summary
+    /// Gets moves and the order in which they should be executed.
+    /// # Output
+    /// An array of arrays of results.
     operation GetMoves() : Result[][][] {
         return [
             // Moves
-            [GetQuantumPosition(3), GetQuantumPosition(3), GetQuantumPosition(3), GetQuantumPosition(3)],
+            [GetQuantumPosition(4)],
             // Order
-            [GetQuantumPosition(2), GetQuantumPosition(2), GetQuantumPosition(2), GetQuantumPosition(2)]
+            [GetQuantumPosition(2)]
         ];
     }
 }

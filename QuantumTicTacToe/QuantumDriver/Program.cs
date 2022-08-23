@@ -6,16 +6,29 @@ namespace QuantumDriver
     {
         static async Task<int> Main(string[] args)
         {
-            IQArray<IQArray<IQArray<Result>>> moves = await Driver.GetQuantumMoves();
+            var board = new Board();
+            var winStats = new int[3];
 
-            foreach (var turn in moves[1])
+            for (int i = 0; i < 30; i++)
             {
-                Console.WriteLine($"{turn.ToInt()}:{moves[0][turn.ToInt()]}");
+                var winCondition = await board.PlayGame();
+                if (winCondition.player != null)
+                {
+                    winStats[(int)winCondition.player]++;
+                }
+                else
+                {
+                    winStats[2]++;
+                }
+
+                board.Clear();
+
+                await Task.Delay(2_500);
             }
 
-            Console.WriteLine($"{moves}");
+            Console.WriteLine($"X:{winStats[0]},O:{winStats[1]},T:{winStats[2]}");
 
             return 0;
         }
-    } 
+    }
 }

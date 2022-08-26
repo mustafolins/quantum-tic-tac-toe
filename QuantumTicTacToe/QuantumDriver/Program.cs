@@ -9,13 +9,16 @@ namespace QuantumDriver
             var board = new Board();
             var winStats = new int[3];
 
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 50; i++)
             {
+                // play game of tic tac toe
                 var winCondition = await board.PlayGame();
+                // increment win stat for players
                 if (winCondition.player != null)
                 {
                     winStats[(int)winCondition.player]++;
                 }
+                // for ties
                 else
                 {
                     winStats[2]++;

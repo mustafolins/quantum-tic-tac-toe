@@ -34,16 +34,21 @@
     }
     
     /// # Summary
-    /// Gets moves and the order in which they should be executed.
+    /// Gets a move that should be played.
+    /// # Output
+    /// An array representing a move.
+    operation GetMoves() : Result[] {
+        // Moves
+        return GetQuantumPosition(4);
+    }
+    
+    /// # Summary
+    /// Gets the player that should go.
     /// # Output
     /// An array of arrays of results.
-    operation GetMoves() : Result[][][] {
-        return [
-            // Moves
-            [GetQuantumPosition(4)],
-            // Order
-            [GetQuantumPosition(2)]
-        ];
+    operation GetTurn() : Result {
+        // Order
+        return GetQubitResult();
     }
 }
 

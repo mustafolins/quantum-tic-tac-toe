@@ -20,21 +20,21 @@ namespace QuantumDriver
         {
             Player? curPlayer = null;
             var winCondition = HasWin();
+            var turn = await Driver.GetPlayerTurn();
 
             while (!winCondition.isWin && !IsTie())
             {
                 // get new quantum moves
-                IQArray<IQArray<IQArray<Result>>> moves = await Driver.GetQuantumMoves();
-                var turn = moves[1][0];
+                IQArray<Result> moves = await Driver.GetQuantumMoves();
 
                 // set current player if null
                 if (curPlayer == null)
                 {
-                    curPlayer = (Player)((turn.ToInt() <= 1) ? 0 : 1);
+                    curPlayer = (Player)(turn.ToBool() ? 0 : 1);
                 }
 
                 // if move was already on board try again
-                if (!AddPosition(curPlayer.Value, moves[0][0].ToInt().Modulo9()))
+                if (!AddPosition(curPlayer.Value, moves.ToInt().Modulo9()))
                     continue;
 
                 // update current player

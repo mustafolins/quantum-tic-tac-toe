@@ -6,17 +6,23 @@ namespace QuantumDriver
     {
         static async Task<int> Main(string[] args)
         {
+            bool hasPlayer = false;
+            if (args.Length > 0)
+            {
+                bool.TryParse(args[0], out hasPlayer);
+            }
+
             var board = new Board();
             var winStats = new int[3];
 
             for (int i = 0; i < 50; i++)
             {
                 // play game of tic tac toe
-                var winCondition = await board.PlayGame();
+                var (isWin, player) = await board.PlayGame(hasPlayer);
                 // increment win stat for players
-                if (winCondition.player != null)
+                if (isWin && player != null)
                 {
-                    winStats[(int)winCondition.player]++;
+                    winStats[(int)player]++;
                 }
                 // for ties
                 else

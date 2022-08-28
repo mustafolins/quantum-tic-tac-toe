@@ -16,7 +16,7 @@ namespace QuantumDriver
             Positions = new Position[9];
         }
 
-        public async Task<(bool isWin, Player? player)> PlayGame()
+        public async Task<(bool isWin, Player? player)> PlayGame(bool hasPlayer = true)
         {
             Player? curPlayer = null;
             var winCondition = HasWin();
@@ -34,7 +34,7 @@ namespace QuantumDriver
                 }
 
                 // if move was already on board try again
-                if (!AddPosition(curPlayer.Value, moves.ToInt().Modulo9()))
+                if (!AddPosition(curPlayer.Value, (hasPlayer && curPlayer == Player.One) ? GetPlayerMove(curPlayer) - 1 : moves.ToInt().Modulo9()))
                     continue;
 
                 // update current player
@@ -59,6 +59,45 @@ namespace QuantumDriver
             }
 
             return winCondition;
+        }
+
+        private int GetPlayerMove(Player? curPlayer)
+        {
+            Console.WriteLine($"Player {curPlayer}'s turn.");
+
+            var keyInfo = Console.ReadKey(true);
+
+            return keyInfo.Key switch
+            {
+                ConsoleKey.NumPad1 => 7,
+                ConsoleKey.D1 => 7,
+                ConsoleKey.End => 7,
+                ConsoleKey.NumPad2 => 8,
+                ConsoleKey.D2 => 8,
+                ConsoleKey.DownArrow => 8,
+                ConsoleKey.NumPad3 => 9,
+                ConsoleKey.D3 => 9,
+                ConsoleKey.PageDown => 9,
+                ConsoleKey.NumPad4 => 4,
+                ConsoleKey.D4 => 4,
+                ConsoleKey.LeftArrow => 4,
+                ConsoleKey.NumPad5 => 5,
+                ConsoleKey.Clear => 5,
+                ConsoleKey.D5 => 5,
+                ConsoleKey.NumPad6 => 6,
+                ConsoleKey.D6 => 6,
+                ConsoleKey.RightArrow => 6,
+                ConsoleKey.NumPad7 => 1,
+                ConsoleKey.D7 => 1,
+                ConsoleKey.Home => 1,
+                ConsoleKey.NumPad8 => 2,
+                ConsoleKey.D8 => 2,
+                ConsoleKey.UpArrow => 2,
+                ConsoleKey.NumPad9 => 3,
+                ConsoleKey.D9 => 3,
+                ConsoleKey.PageUp => 3,
+                _ => GetPlayerMove(curPlayer),
+            };
         }
 
         public bool AddPosition(Player player, int location)

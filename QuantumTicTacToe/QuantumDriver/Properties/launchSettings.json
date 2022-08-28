@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "QuantumDriver": {
+      "commandName": "Project",
+      "commandLineArgs": "false"
+    }
+  }
+}
